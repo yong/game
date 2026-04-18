@@ -8,11 +8,12 @@ export const jobs = [
       {
         id: 'eras-tour',
         caseNumber: 1,
-        emoji: '🎤',
-        title: 'The "Hoover Eras" Tour Audit',
-        teaser: 'Verify Taylor Swift\u2019s tour-stop budget at Hoover Middle School.',
+        emoji: '🎤✨',
+        title: 'The "Hoover Eras" Tour Audit ✨',
+        teaser:
+          '💖 OMG \u2014 Taylor is coming to Hoover! Audit the sparkle, sequins & pyrotechnics budget. ✨',
         scenario:
-          'Taylor Swift has decided to host her next multi-million dollar "Eras Tour" concert right here at Hoover Middle School. The budget is completely out of control. As a Junior Auditor, you must confirm the costs and verify if these massive expenses are reasonable.',
+          "\u2728 OMG! Taylor Swift has chosen Hoover Middle School as the surprise stop of her next multi-million dollar \"Eras Tour\" \ud83c\udfa4\ud83d\udc96! Fans are already screaming \ud83d\udc95 \u2014 there's a 60-foot glitter stage \ud83c\udf1f, backup dancers in dazzling sequin bodysuits \ud83d\udc83, fireworks and pyrotechnics \ud83c\udf86\ud83c\udf87, a giant friendship-bracelet budget \ud83d\udc5c\ud83d\udcab, custom costumes from every Era, and rumors of a Travis Kelce cameo \ud83c\udfc8\ud83d\udc98. The budget is COMPLETELY out of control \ud83d\udc78\ud83d\udcb8! As a Junior Auditor \ud83d\udd75\ufe0f\u200d\u2640\ufe0f, you must confirm these sparkling costs and verify if these massive, over-the-top expenses are reasonable. \u2b50\ud83d\udc85",
       },
       {
         id: 'basketball-arena',
