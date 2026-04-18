@@ -178,13 +178,15 @@ main#app {
   white-space: nowrap;
 }
 .scenario .hl-icon {
-  display: inline-block;
-  height: 1.6em;
-  width: auto;
-  vertical-align: -0.4em;
-  margin: 0 2px 0 4px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  display: block;
+  height: auto;
+  width: 200px;
+  max-width: 100%;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  background: #111;
+  padding: 4px;
 }
 .scenario h2 {
   margin: 0 0 6px;
