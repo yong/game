@@ -72,8 +72,16 @@ function renderHome() {
     .join('');
 
   app.innerHTML = `
+    <section class="hero">
+      <img class="hero-crest" src="img/school-crest.svg" alt="Hoover Middle School shield" />
+      <div class="hero-text">
+        <div class="hero-school">HERBERT HOOVER</div>
+        <div class="hero-sub">MIDDLE SCHOOL</div>
+        <div class="hero-event">🎪 Career Fair</div>
+      </div>
+    </section>
     <header class="topbar">
-      <h1>Career Fair — Accounting</h1>
+      <h1>Accounting Careers</h1>
       <p class="tagline">Pick the job you want to try today.</p>
     </header>
     <section class="grid-2">${tiles}</section>

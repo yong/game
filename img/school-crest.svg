@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" role="img" aria-label="Hoover Middle School shield">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a82222"/>
+      <stop offset="1" stop-color="#780d0d"/>
+    </linearGradient>
+  </defs>
+  <path d="M 60 6 L 10 18 L 10 82 Q 10 122 60 134 Q 110 122 110 82 L 110 18 Z"
+        fill="url(#shieldGrad)" stroke="#4d0606" stroke-width="3"/>
+  <path d="M 60 6 L 10 18 L 10 40 L 110 40 L 110 18 Z" fill="rgba(255,255,255,0.08)"/>
+  <text x="60" y="95" font-family="Georgia, 'Times New Roman', serif" font-size="78"
+        font-weight="900" fill="#f5efe0" text-anchor="middle">H</text>
+</svg>
