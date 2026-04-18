@@ -144,6 +144,7 @@ function renderCase() {
         <li>Walk to the other career tables listed on your Case File.</li>
         <li>Ask the professionals the questions, and write their answers on the paper.</li>
         <li>Bring the completed Case File back to the Junior Auditor table.</li>
+        <li>After we review your completed workpaper, collect your award! 🏆🎉</li>
       </ol>
       <p class="tip">Good luck, Junior Auditor! 🔍</p>
     </section>
