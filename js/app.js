@@ -27,7 +27,8 @@ function esc(s) {
 function escWithHighlights(text, highlights) {
   let out = esc(text);
   if (!highlights || !highlights.length) return out;
-  for (const term of highlights) {
+  const sorted = [...highlights].sort((a, b) => b.length - a.length);
+  for (const term of sorted) {
     const safe = esc(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     out = out.replace(new RegExp(safe, 'g'), `<span class="hl">${esc(term)}</span>`);
   }
