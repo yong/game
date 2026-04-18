@@ -168,6 +168,15 @@ main#app {
   font-size: 19px;
   line-height: 1.5;
 }
+.scenario .hl {
+  background: linear-gradient(120deg, #ffe6f2 0%, #fff3c4 100%);
+  color: #b4005d;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(180, 0, 93, 0.15);
+  white-space: nowrap;
+}
 .scenario h2 {
   margin: 0 0 6px;
   font-size: 16px;

@@ -24,6 +24,16 @@ function esc(s) {
     .replaceAll("'", '&#39;');
 }
 
+function escWithHighlights(text, highlights) {
+  let out = esc(text);
+  if (!highlights || !highlights.length) return out;
+  for (const term of highlights) {
+    const safe = esc(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    out = out.replace(new RegExp(safe, 'g'), `<span class="hl">${esc(term)}</span>`);
+  }
+  return out;
+}
+
 function render() {
   if (!state.jobId) {
     renderHome();
@@ -124,7 +134,7 @@ function renderCase() {
     </header>
     <section class="scenario big">
       <h2>Your mission</h2>
-      <p>${esc(kase.scenario)}</p>
+      <p>${escWithHighlights(kase.scenario, kase.highlights)}</p>
     </section>
     <section class="instructions">
       <h2>What to do</h2>
