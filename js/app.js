@@ -5,8 +5,6 @@ const app = document.getElementById('app');
 const state = {
   jobId: null,
   caseId: null,
-  studentName: '',
-  answers: {},
 };
 
 function findJob(id) {
@@ -17,8 +15,8 @@ function findCase(job, id) {
   return job ? job.cases.find((c) => c.id === id) : null;
 }
 
-function escapeHtml(str) {
-  return String(str)
+function esc(s) {
+  return String(s)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
@@ -31,8 +29,6 @@ function render() {
     renderHome();
   } else if (!state.caseId) {
     renderCasePicker();
-  } else if (state.caseId === '__done__') {
-    renderReceipt();
   } else {
     renderCase();
   }
@@ -41,16 +37,15 @@ function render() {
 function renderHome() {
   const tiles = jobs
     .map((job) => {
-      const disabled = job.available ? '' : 'disabled';
       const badge = job.available
         ? ''
         : '<span class="badge">coming soon</span>';
       return `
-        <button class="tile ${disabled}" data-job="${escapeHtml(job.id)}" ${
+        <button class="tile" data-job="${esc(job.id)}" ${
         job.available ? '' : 'disabled'
       }>
-          <div class="tile-title">${escapeHtml(job.title)}</div>
-          <div class="tile-sub">${escapeHtml(job.subtitle)} ${badge}</div>
+          <div class="tile-title">${esc(job.title)}</div>
+          <div class="tile-sub">${esc(job.subtitle)} ${badge}</div>
         </button>
       `;
     })
@@ -62,16 +57,12 @@ function renderHome() {
       <p class="tagline">Pick the job you want to try today.</p>
     </header>
     <section class="grid-2">${tiles}</section>
-    <footer class="foot">
-      <a href="print.html">Printable case sheets →</a>
-    </footer>
   `;
 
   app.querySelectorAll('button.tile:not([disabled])').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.jobId = btn.dataset.job;
       state.caseId = null;
-      state.answers = {};
       render();
     });
   });
@@ -86,11 +77,11 @@ function renderCasePicker() {
 
   const cards = job.cases
     .map(
-      (c, i) => `
-      <button class="card" data-case="${escapeHtml(c.id)}">
-        <div class="case-num">Case ${i + 1}</div>
-        <div class="case-title">${escapeHtml(c.title)}</div>
-        <div class="case-teaser">${escapeHtml(c.teaser)}</div>
+      (c) => `
+      <button class="card" data-case="${esc(c.id)}">
+        <div class="case-num">Case File #${c.caseNumber}</div>
+        <div class="case-title">${esc(c.emoji || '')} ${esc(c.title)}</div>
+        <div class="case-teaser">${esc(c.teaser)}</div>
       </button>
     `,
     )
@@ -99,15 +90,9 @@ function renderCasePicker() {
   app.innerHTML = `
     <header class="topbar">
       <button class="back" id="back">← Back</button>
-      <h1>${escapeHtml(job.title)}</h1>
-      <p class="tagline">Pick one case to investigate.</p>
+      <h1>${esc(job.title)}</h1>
+      <p class="tagline">Pick a case to investigate. Your paper case file has the full mission.</p>
     </header>
-    <label class="name-row">
-      Your first name (optional):
-      <input id="name" type="text" maxlength="30" value="${escapeHtml(
-        state.studentName,
-      )}" placeholder="e.g. Maya" />
-    </label>
     <section class="grid-2">${cards}</section>
   `;
 
@@ -115,13 +100,9 @@ function renderCasePicker() {
     state.jobId = null;
     render();
   });
-  app.querySelector('#name').addEventListener('input', (e) => {
-    state.studentName = e.target.value;
-  });
   app.querySelectorAll('button.card').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.caseId = btn.dataset.case;
-      state.answers = {};
       render();
     });
   });
@@ -135,115 +116,30 @@ function renderCase() {
     return render();
   }
 
-  const qBlocks = kase.questions
-    .map((q, i) => {
-      const selected = state.answers[i];
-      const opts = q.options
-        .map(
-          (opt, j) => `
-          <label class="option ${selected === j ? 'selected' : ''}">
-            <input type="radio" name="q${i}" value="${j}" ${
-            selected === j ? 'checked' : ''
-          } />
-            <span class="letter">${String.fromCharCode(65 + j)}</span>
-            <span class="opt-text">${escapeHtml(opt)}</span>
-          </label>`,
-        )
-        .join('');
-
-      return `
-        <article class="question">
-          <div class="q-head">
-            <span class="q-num">Q${i + 1}</span>
-            <span class="visit">🚶 Go visit the <strong>${escapeHtml(
-              q.visit,
-            )}</strong> table</span>
-          </div>
-          <p class="q-prompt">${escapeHtml(q.prompt)}</p>
-          <div class="options">${opts}</div>
-        </article>
-      `;
-    })
-    .join('');
-
   app.innerHTML = `
     <header class="topbar">
-      <button class="back" id="back">← Back</button>
-      <h1>${escapeHtml(kase.title)}</h1>
+      <button class="back" id="back">← Pick a different case</button>
+      <div class="case-tag">Case File #${kase.caseNumber}</div>
+      <h1>${esc(kase.emoji || '')} ${esc(kase.title)}</h1>
     </header>
-    <section class="scenario">
+    <section class="scenario big">
       <h2>Your mission</h2>
-      <p>${escapeHtml(kase.scenario)}</p>
+      <p>${esc(kase.scenario)}</p>
     </section>
-    <section class="questions">${qBlocks}</section>
-    <div class="actions">
-      <button class="primary" id="finish">Finish &amp; see my report →</button>
-    </div>
+    <section class="instructions">
+      <h2>What to do</h2>
+      <ol>
+        <li>Pick up your paper Case File from the Junior Auditor table.</li>
+        <li>Walk to the other career tables listed on your Case File.</li>
+        <li>Ask the professionals the questions, and write their answers on the paper.</li>
+        <li>Bring the completed Case File back to the Junior Auditor table.</li>
+      </ol>
+      <p class="tip">Good luck, Junior Auditor! 🔍</p>
+    </section>
   `;
 
   app.querySelector('#back').addEventListener('click', () => {
     state.caseId = null;
-    render();
-  });
-
-  app.querySelectorAll('input[type=radio]').forEach((input) => {
-    input.addEventListener('change', (e) => {
-      const name = e.target.name;
-      const idx = parseInt(name.slice(1), 10);
-      state.answers[idx] = parseInt(e.target.value, 10);
-      render();
-    });
-  });
-
-  app.querySelector('#finish').addEventListener('click', () => {
-    state.caseId = '__done__';
-    state._lastCaseId = kase.id;
-    render();
-  });
-}
-
-function renderReceipt() {
-  const job = findJob(state.jobId);
-  const kase = findCase(job, state._lastCaseId);
-  if (!kase) {
-    state.caseId = null;
-    return render();
-  }
-
-  const rows = kase.questions
-    .map((q, i) => {
-      const pick = state.answers[i];
-      const ans =
-        pick === undefined ? '<em>no answer</em>' : escapeHtml(q.options[pick]);
-      return `
-        <li>
-          <div class="r-visit">${escapeHtml(q.visit)}</div>
-          <div class="r-prompt">${escapeHtml(q.prompt)}</div>
-          <div class="r-ans"><strong>Your answer:</strong> ${ans}</div>
-        </li>`;
-    })
-    .join('');
-
-  const who = state.studentName ? escapeHtml(state.studentName) : 'Auditor';
-
-  app.innerHTML = `
-    <header class="topbar">
-      <h1>🎉 Great work, ${who}!</h1>
-      <p class="tagline">Show this to the Junior Auditor mentor.</p>
-    </header>
-    <section class="receipt">
-      <div class="r-title">${escapeHtml(kase.title)}</div>
-      <ol>${rows}</ol>
-    </section>
-    <div class="actions">
-      <button class="primary" onclick="window.print()">🖨️ Print my report</button>
-      <button class="ghost" id="again">Try another case</button>
-    </div>
-  `;
-
-  app.querySelector('#again').addEventListener('click', () => {
-    state.caseId = null;
-    state.answers = {};
     render();
   });
 }

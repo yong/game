@@ -141,6 +141,18 @@ main#app {
 }
 
 /* Case screen */
+.case-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #4a3000;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
 .scenario {
   background: var(--card);
   border-left: 6px solid var(--brand);
@@ -148,6 +160,13 @@ main#app {
   border-radius: 10px;
   box-shadow: var(--shadow);
   margin-bottom: 18px;
+}
+.scenario.big {
+  padding: 20px 22px;
+}
+.scenario.big p {
+  font-size: 19px;
+  line-height: 1.5;
 }
 .scenario h2 {
   margin: 0 0 6px;
@@ -158,6 +177,32 @@ main#app {
 }
 .scenario p {
   margin: 0;
+}
+.instructions {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  border: 2px dashed var(--brand);
+}
+.instructions h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-dark);
+}
+.instructions ol {
+  margin: 0 0 6px;
+  padding-left: 22px;
+}
+.instructions li {
+  margin-bottom: 6px;
+}
+.instructions .tip {
+  margin: 10px 0 0;
+  font-weight: 700;
+  color: var(--good);
 }
 
 .questions {
