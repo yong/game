@@ -22,7 +22,11 @@ export const jobs = [
         emoji: '🏀',
         title: 'Hoover Basketball Arena Audit',
         teaser: 'Verify the pro-level court, backboards, and Jumbotron budget.',
-        highlights: ['Hoover Middle School', 'NBA-level', 'Jumbotron'],
+        highlights: [
+          'Hoover Middle School',
+          'NBA-level',
+          { term: 'Jumbotron', icon: 'img/jumbotron.svg' },
+        ],
         scenario:
           'Hoover Middle School is upgrading its gym to feature a professional, NBA-level basketball court! The school wants high-performance hardwood floors, shatterproof backboards, and a massive Jumbotron with instant replays just like the pros. The school board is shocked by the massive budget. As a Junior Auditor, you must investigate the costs of this high-tech sports court and verify these expenses.',
       },

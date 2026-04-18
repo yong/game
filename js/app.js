@@ -27,10 +27,19 @@ function esc(s) {
 function escWithHighlights(text, highlights) {
   let out = esc(text);
   if (!highlights || !highlights.length) return out;
-  const sorted = [...highlights].sort((a, b) => b.length - a.length);
-  for (const term of sorted) {
+  const normalized = highlights.map((h) =>
+    typeof h === 'string' ? { term: h } : h,
+  );
+  const sorted = [...normalized].sort((a, b) => b.term.length - a.term.length);
+  for (const { term, icon } of sorted) {
     const safe = esc(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    out = out.replace(new RegExp(safe, 'g'), `<span class="hl">${esc(term)}</span>`);
+    const iconHtml = icon
+      ? ` <img class="hl-icon" src="${esc(icon)}" alt="" />`
+      : '';
+    out = out.replace(
+      new RegExp(safe, 'g'),
+      `<span class="hl">${esc(term)}</span>${iconHtml}`,
+    );
   }
   return out;
 }
