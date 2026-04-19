@@ -34,7 +34,7 @@ export const jobs = [
         id: 'zelda-minecraft-fest',
         caseNumber: 3,
         emoji: '🎮',
-        title: 'Zelda × Minecraft Fest',
+        title: 'Zelda × Minecraft Fest Audit',
         teaser: 'Verify the custom 3D Hyrule-in-Minecraft build budget.',
         highlights: [
           'Zelda × Minecraft Fest',
