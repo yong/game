@@ -24,7 +24,8 @@ export const jobs = [
         teaser: 'Verify the pro-level court, backboards, and Jumbotron budget.',
         highlights: [
           'Hoover Middle School',
-          'NBA-level',
+          { term: 'NBA-level', icon: 'img/nba-shield.svg' },
+          { term: 'basketball court', icon: 'img/basketball.svg' },
           { term: 'Jumbotron', icon: 'img/jumbotron.svg' },
         ],
         scenario:
