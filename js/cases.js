@@ -54,7 +54,42 @@ export const jobs = [
     id: 'budget-accountant',
     title: 'Budget Accountant',
     subtitle: 'Private Accounting',
-    available: false,
-    cases: [],
+    available: true,
+    cases: [
+      {
+        id: 'gaming-club',
+        caseNumber: 1,
+        emoji: '🎮',
+        title: 'Budget Accounting Game: The Gaming Club',
+        teaser:
+          '🕹️ You are the President of the new School Gaming Club! Spend $1,000 wisely and try not to go bankrupt!',
+        highlights: [
+          'President',
+          'School Gaming Club',
+          '$1,000',
+          'Unexpected Event',
+          'bankrupt',
+        ],
+        scenario:
+          '🎮 Game Goal: You are the President of the new School Gaming Club! The school gave you $1,000, but building a club is expensive. Spend your money wisely, survive the "Unexpected Event," and try not to go bankrupt!',
+      },
+      {
+        id: 'sneaker-club',
+        caseNumber: 2,
+        emoji: '👟',
+        title: 'Budget Accounting Game: The Sneaker Design Club',
+        teaser:
+          '🎨 You are the President of the new Sneaker Design Club! Spend $1,000 on custom shoe supplies and try not to go bankrupt!',
+        highlights: [
+          'President',
+          'Hoover Middle School Sneaker Design Club',
+          '$1,000',
+          'Unexpected Event',
+          'bankrupt',
+        ],
+        scenario:
+          '👟 Game Goal: You are the President of the new Hoover Middle School Sneaker Design Club! The school gave you $1,000 to start the club, but custom shoe supplies are expensive. Spend your money wisely, survive the "Unexpected Event," and try not to go bankrupt!',
+      },
+    ],
   },
 ];

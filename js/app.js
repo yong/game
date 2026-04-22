@@ -157,13 +157,13 @@ function renderCase() {
     <section class="instructions">
       <h2>What to do</h2>
       <ol>
-        <li>Pick up your paper Case File from the Junior Auditor table.</li>
+        <li>Pick up your paper Case File from the ${esc(job.title)} table.</li>
         <li>Walk to the other career tables listed on your Case File.</li>
         <li>Ask the professionals the questions, and write their answers on the paper.</li>
-        <li>Bring the completed Case File back to the Junior Auditor table.</li>
+        <li>Bring the completed Case File back to the ${esc(job.title)} table.</li>
         <li>After we review your completed workpaper, collect your award! 🏆🎉</li>
       </ol>
-      <p class="tip">Good luck, Junior Auditor! 🔍</p>
+      <p class="tip">Good luck, ${esc(job.title)}! 🔍</p>
     </section>
   `;
 
