@@ -10,20 +10,19 @@ const state = {
 const audio = new Audio();
 audio.loop = true;
 audio.volume = 0.35;
+audio.src = 'audio/background.mp3';
 let muted = localStorage.getItem('cf-muted') === '1';
+let unlocked = false;
 
-function playMusic(src) {
-  if (!src) return stopMusic();
-  if (audio.src.endsWith(src) && !audio.paused) return;
-  audio.src = src;
+function tryPlay() {
   if (muted) return;
   audio.play().catch(() => {});
 }
 
-function stopMusic() {
-  audio.pause();
-  audio.removeAttribute('src');
-  audio.load();
+function unlockAudioOnce() {
+  if (unlocked) return;
+  unlocked = true;
+  tryPlay();
 }
 
 function setMuted(next) {
@@ -31,9 +30,25 @@ function setMuted(next) {
   localStorage.setItem('cf-muted', muted ? '1' : '0');
   if (muted) {
     audio.pause();
-  } else if (audio.src) {
-    audio.play().catch(() => {});
+  } else {
+    tryPlay();
   }
+  document.querySelectorAll('.mute').forEach((btn) => {
+    btn.textContent = muted ? '🔇 Unmute' : '🔊 Mute';
+  });
+}
+
+document.addEventListener('click', unlockAudioOnce, { once: true });
+
+function muteButtonHtml() {
+  const label = muted ? '🔇 Unmute' : '🔊 Mute';
+  return `<button class="mute" type="button" data-mute>${label}</button>`;
+}
+
+function wireMuteButtons(root) {
+  root.querySelectorAll('[data-mute]').forEach((btn) => {
+    btn.addEventListener('click', () => setMuted(!muted));
+  });
 }
 
 function findJob(id) {
@@ -75,10 +90,8 @@ function escWithHighlights(text, highlights) {
 
 function render() {
   if (!state.jobId) {
-    stopMusic();
     renderHome();
   } else if (!state.caseId) {
-    stopMusic();
     renderCasePicker();
   } else {
     renderCase();
@@ -114,10 +127,12 @@ function renderHome() {
     <header class="topbar">
       <h1>Accounting Careers</h1>
       <p class="tagline">Pick the job you want to try today.</p>
+      ${muteButtonHtml()}
     </header>
     <section class="grid-2">${tiles}</section>
   `;
 
+  wireMuteButtons(app);
   app.querySelectorAll('button.tile:not([disabled])').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.jobId = btn.dataset.job;
@@ -151,10 +166,12 @@ function renderCasePicker() {
       <button class="back" id="back">← Back</button>
       <h1>${esc(job.title)}</h1>
       <p class="tagline">Pick a case to investigate. Your paper case file has the full mission.</p>
+      ${muteButtonHtml()}
     </header>
     <section class="grid-2">${cards}</section>
   `;
 
+  wireMuteButtons(app);
   app.querySelector('#back').addEventListener('click', () => {
     state.jobId = null;
     render();
@@ -190,17 +207,12 @@ function renderCase() {
           'After we review your completed workpaper, collect your award! 🏆🎉',
         ];
 
-  const muteLabel = muted ? '🔇 Unmute' : '🔊 Mute';
-  const musicBtn = kase.music
-    ? `<button class="mute" id="mute" type="button">${muteLabel}</button>`
-    : '';
-
   app.innerHTML = `
     <header class="topbar">
       <button class="back" id="back">← Pick a different case</button>
       <div class="case-tag">Case File #${kase.caseNumber}</div>
       <h1>${esc(kase.emoji || '')} ${esc(kase.title)}</h1>
-      ${musicBtn}
+      ${muteButtonHtml()}
     </header>
     <section class="scenario big">
       <h2>Your mission</h2>
@@ -215,19 +227,11 @@ function renderCase() {
     </section>
   `;
 
-  playMusic(kase.music);
-
+  wireMuteButtons(app);
   app.querySelector('#back').addEventListener('click', () => {
     state.caseId = null;
     render();
   });
-  const muteBtn = app.querySelector('#mute');
-  if (muteBtn) {
-    muteBtn.addEventListener('click', () => {
-      setMuted(!muted);
-      muteBtn.textContent = muted ? '🔇 Unmute' : '🔊 Mute';
-    });
-  }
 }
 
 render();
