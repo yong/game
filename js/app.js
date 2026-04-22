@@ -144,6 +144,21 @@ function renderCase() {
     return render();
   }
 
+  const steps =
+    job.id === 'budget-accountant'
+      ? [
+          `Pick up your paper Case File from the ${esc(job.title)} table.`,
+          'Follow the steps listed on your Case File.',
+          'After we review your completed work, collect your award! 🏆🎉',
+        ]
+      : [
+          `Pick up your paper Case File from the ${esc(job.title)} table.`,
+          'Walk to the other career tables listed on your Case File.',
+          'Ask the professionals the questions, and write their answers on the paper.',
+          `Bring the completed Case File back to the ${esc(job.title)} table.`,
+          'After we review your completed workpaper, collect your award! 🏆🎉',
+        ];
+
   app.innerHTML = `
     <header class="topbar">
       <button class="back" id="back">← Pick a different case</button>
@@ -157,11 +172,7 @@ function renderCase() {
     <section class="instructions">
       <h2>What to do</h2>
       <ol>
-        <li>Pick up your paper Case File from the ${esc(job.title)} table.</li>
-        <li>Walk to the other career tables listed on your Case File.</li>
-        <li>Ask the professionals the questions, and write their answers on the paper.</li>
-        <li>Bring the completed Case File back to the ${esc(job.title)} table.</li>
-        <li>After we review your completed workpaper, collect your award! 🏆🎉</li>
+        ${steps.map((s) => `<li>${s}</li>`).join('')}
       </ol>
       <p class="tip">Good luck, ${esc(job.title)}! 🔍</p>
     </section>
