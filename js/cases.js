@@ -10,6 +10,7 @@ export const jobs = [
         caseNumber: 1,
         emoji: '🎤✨',
         title: 'The "Hoover Eras" Tour Audit ✨',
+        music: 'audio/eras-tour.mp3',
         teaser:
           '💖 OMG \u2014 Taylor is coming to Hoover! Audit the sparkle, sequins & pyrotechnics budget. ✨',
         highlights: ['Taylor Swift', 'Hoover Middle School'],
@@ -21,6 +22,7 @@ export const jobs = [
         caseNumber: 2,
         emoji: '🏀',
         title: 'Hoover Basketball Arena Audit',
+        music: 'audio/basketball-arena.mp3',
         teaser: 'Verify the pro-level court, backboards, and Jumbotron budget.',
         highlights: [
           'Hoover Middle School',
@@ -36,6 +38,7 @@ export const jobs = [
         caseNumber: 3,
         emoji: '🎮',
         title: 'Zelda × Minecraft Fest Audit',
+        music: 'audio/zelda-minecraft.mp3',
         teaser: 'Verify the custom 3D Hyrule-in-Minecraft build budget.',
         highlights: [
           { term: 'Zelda × Minecraft Fest', icon: 'img/minecraft-block.svg' },
@@ -61,6 +64,7 @@ export const jobs = [
         caseNumber: 1,
         emoji: '🎮',
         title: 'Budget Accounting Game: The Gaming Club',
+        music: 'audio/gaming-club.mp3',
         teaser:
           '🕹️ You are the President of the new School Gaming Club! Spend $1,000 wisely and try not to go bankrupt!',
         highlights: [
@@ -78,6 +82,7 @@ export const jobs = [
         caseNumber: 2,
         emoji: '👟',
         title: 'Budget Accounting Game: The Sneaker Design Club',
+        music: 'audio/sneaker-club.mp3',
         teaser:
           '🎨 You are the President of the new Sneaker Design Club! Spend $1,000 on custom shoe supplies and try not to go bankrupt!',
         highlights: [

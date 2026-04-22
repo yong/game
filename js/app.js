@@ -7,6 +7,35 @@ const state = {
   caseId: null,
 };
 
+const audio = new Audio();
+audio.loop = true;
+audio.volume = 0.35;
+let muted = localStorage.getItem('cf-muted') === '1';
+
+function playMusic(src) {
+  if (!src) return stopMusic();
+  if (audio.src.endsWith(src) && !audio.paused) return;
+  audio.src = src;
+  if (muted) return;
+  audio.play().catch(() => {});
+}
+
+function stopMusic() {
+  audio.pause();
+  audio.removeAttribute('src');
+  audio.load();
+}
+
+function setMuted(next) {
+  muted = next;
+  localStorage.setItem('cf-muted', muted ? '1' : '0');
+  if (muted) {
+    audio.pause();
+  } else if (audio.src) {
+    audio.play().catch(() => {});
+  }
+}
+
 function findJob(id) {
   return jobs.find((j) => j.id === id);
 }
@@ -46,8 +75,10 @@ function escWithHighlights(text, highlights) {
 
 function render() {
   if (!state.jobId) {
+    stopMusic();
     renderHome();
   } else if (!state.caseId) {
+    stopMusic();
     renderCasePicker();
   } else {
     renderCase();
@@ -159,11 +190,17 @@ function renderCase() {
           'After we review your completed workpaper, collect your award! 🏆🎉',
         ];
 
+  const muteLabel = muted ? '🔇 Unmute' : '🔊 Mute';
+  const musicBtn = kase.music
+    ? `<button class="mute" id="mute" type="button">${muteLabel}</button>`
+    : '';
+
   app.innerHTML = `
     <header class="topbar">
       <button class="back" id="back">← Pick a different case</button>
       <div class="case-tag">Case File #${kase.caseNumber}</div>
       <h1>${esc(kase.emoji || '')} ${esc(kase.title)}</h1>
+      ${musicBtn}
     </header>
     <section class="scenario big">
       <h2>Your mission</h2>
@@ -178,10 +215,19 @@ function renderCase() {
     </section>
   `;
 
+  playMusic(kase.music);
+
   app.querySelector('#back').addEventListener('click', () => {
     state.caseId = null;
     render();
   });
+  const muteBtn = app.querySelector('#mute');
+  if (muteBtn) {
+    muteBtn.addEventListener('click', () => {
+      setMuted(!muted);
+      muteBtn.textContent = muted ? '🔇 Unmute' : '🔊 Mute';
+    });
+  }
 }
 
 render();

@@ -109,6 +109,32 @@ main#app {
   padding: 4px 0;
   cursor: pointer;
 }
+.mute {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.mute:hover {
+  border-color: var(--brand);
+}
+.topbar {
+  position: relative;
+}
+@media print {
+  .mute {
+    display: none;
+  }
+}
 
 /* Job tiles + case cards */
 .grid-2 {
